@@ -36,6 +36,15 @@ module.exports = {
         "plugin:sonarjs/recommended",
         "plugin:security/recommended",
         "plugin:react-hooks/recommended",
+        "next",
+    ],
+    overrides: [
+        {
+            files: ["*.ts", "*.tsx"],
+            rules: {
+                "no-undef": "off",
+            },
+        },
     ],
 
     rules: {
