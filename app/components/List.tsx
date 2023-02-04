@@ -1,27 +1,43 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import cn from 'classnames';
 import myFetch from '@utils/myFetch';
+import { useSearchParams } from 'next/navigation';
 import Story from './Story';
 import type { StoryDTO, TopStoriesDTO } from '../types';
-import { Loading } from './Loading';
+import StorySkeleton from './StorySkeleton';
+import Pagination from './Pagination';
 
-export default function List() {
+export default function List({ className = '' }) {
+  const searchParams = useSearchParams();
+  const pageSize = 10;
+  const page = +(searchParams.get('page') || 1);
+  const startIndex = pageSize * (page - 1);
+
   const [stories, setStories] = useState<StoryDTO[]>([]);
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    async function getTopStoryDetail(id: number) {
-      return myFetch<StoryDTO>(`/item/${id}.json`);
-    }
+  const [loading, setLoading] = useState(true);
+  const [totalIds, setTotalIds] = useState<TopStoriesDTO>([]);
+  const [totalPage, setTotalPage] = useState(0);
 
+  useEffect(() => {
+    async function getTopStoriesData() {
+      const ids = await myFetch<TopStoriesDTO>('/topstories.json');
+      setTotalIds(ids);
+      setTotalPage(ids.length / pageSize);
+    }
+    getTopStoriesData();
+  }, []);
+
+  useEffect(() => {
     async function getTopStoriesData() {
       setLoading(true);
-      const ids = await myFetch<TopStoriesDTO>('/topstories.json');
       const values = await Promise.all(
-        ids.reduce<Promise<StoryDTO>[]>(
+        totalIds.reduce<Promise<StoryDTO>[]>(
           (prev, curr, index) =>
-            index < 10 ? [...prev, getTopStoryDetail(curr)] : [...prev],
-
+            index >= startIndex && index < startIndex + pageSize
+              ? [...prev, myFetch<StoryDTO>(`/item/${curr}.json`)]
+              : [...prev],
           []
         )
       );
@@ -29,15 +45,24 @@ export default function List() {
       setStories(values);
     }
     getTopStoriesData();
-  }, []);
+  }, [totalIds, page, startIndex]);
 
   return (
-    <div>
-      {loading ? (
-        <Loading />
-      ) : (
-        stories.map(story => <Story item={story} key={story.id} />)
-      )}
-    </div>
+    <>
+      <div className={cn('grid md:grid-cols-2 gap-2', className)}>
+        {loading
+          ? Array(pageSize)
+              .fill(0)
+              .map((_, index) => <StorySkeleton key={index} />)
+          : stories.map((story, index) => (
+              <Story
+                item={story}
+                index={startIndex + index + 1}
+                key={story.id}
+              />
+            ))}
+      </div>
+      {!loading && <Pagination pagesCount={totalPage} />}
+    </>
   );
 }

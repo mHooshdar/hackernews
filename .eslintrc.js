@@ -61,6 +61,9 @@ module.exports = {
       },
     ],
     'react/jsx-props-no-spreading': 'off',
+    'react/require-default-props': 'off',
+    'react/no-danger': 'off',
+    'react/no-array-index-key': 'off',
     'import/extensions': [
       'error',
       'ignorePackages',
