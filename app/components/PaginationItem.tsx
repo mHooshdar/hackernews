@@ -21,12 +21,12 @@ export default function PaginationItem({
       <Link
         href={href}
         className={cn(
-          'page-link relative block py-1 px-3 border-0 transition-all duration-300 rounded-full focus:shadow-none',
+          'page-link relative block py-1 px-3 border-0 transition-all duration-300 rounded-full focus:shadow-none dark:text-gray-300',
           {
-            'bg-blue-600 text-white hover:text-white hover:bg-blue-600 shadow-md':
+            'bg-blue-600 text-white hover:text-white hover:bg-blue-600 hover:dark:bg-blue-800 shadow-md':
               current,
             'text-gray-500 pointer-events-none': disabled,
-            'text-gray-800 hover:text-gray-800 hover:bg-gray-200 cursor-pointer':
+            'text-gray-800 hover:text-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer':
               !disabled,
           },
           className

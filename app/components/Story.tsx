@@ -25,17 +25,21 @@ export default function Story({ item, index }: StoryProps) {
   return (
     <article>
       <Link
-        className="border flex gap-2 border-gray-200 md:p-4 p-3 rounded-md shadow-md hover:shadow-none transition-shadow h-full"
+        className="border flex gap-2 border-gray-200 dark:border-gray-600 md:p-4 p-3 rounded-md shadow-md hover:shadow-none transition-shadow h-full"
         href={`${item.url}`}
         target="_blank"
       >
-        <span className="text-gray-500">{index}.</span>
+        <span className="text-gray-500 dark:text-gray-400">{index}.</span>
         <div>
           <div className="flex gap-x-3 items-center mb-1 flex-wrap">
-            <h3 className="font-bold">{item.title}</h3>
-            {item.by && <span className="text-xs">Written By: {item.by}</span>}
+            <h3 className="dark:text-gray-100 font-bold">{item.title}</h3>
+            {item.by && (
+              <span className="text-xs dark:text-gray-300">
+                Written By: {item.by}
+              </span>
+            )}
           </div>
-          <div className="flex items-center gap-x-1 text-xs text-gray-500 flex-wrap">
+          <div className="flex items-center gap-x-1 text-xs text-gray-500 dark:text-gray-400 flex-wrap">
             <span>id: {item.id}</span> |<span>{item.score} points</span> |
             {item.time && <span>{formattedTime}</span>}
             {item.descendants > 0 ? (
@@ -46,7 +50,7 @@ export default function Story({ item, index }: StoryProps) {
           </div>
           {item.text && (
             <div
-              className="mt-3 text-sm"
+              className="mt-3 text-sm dark:text-gray-300"
               dangerouslySetInnerHTML={{ __html: item.text }}
             />
           )}

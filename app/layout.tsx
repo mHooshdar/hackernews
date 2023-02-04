@@ -8,7 +8,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head />
-      <body>
+      <body className="dark:bg-slate-800">
         <main className="container mx-auto">{children}</main>
       </body>
     </html>

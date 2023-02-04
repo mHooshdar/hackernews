@@ -39,7 +39,7 @@ export default function Pagination({ pagesCount, size = 3 }: PaginationProps) {
           )}
           {!pages.includes(2) && (
             <>
-              ...
+              <span className="dark:text-gray-300">...</span>
               <PaginationItem
                 href={resolveRoute(currentPage - 1)}
                 className="mx-1 disabled"
@@ -66,7 +66,7 @@ export default function Pagination({ pagesCount, size = 3 }: PaginationProps) {
                 className="mx-1 disabled"
                 text=">"
               />
-              ...
+              <span className="dark:text-gray-300">...</span>
             </>
           )}
           {(pages[pages.length - 1] || pagesCount) < pagesCount && (
