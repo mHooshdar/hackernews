@@ -23,7 +23,7 @@ export default function Story({ item, index }: StoryProps) {
   }, [item.time]);
 
   return (
-    <article>
+    <article aria-label="news">
       <Link
         className="border flex gap-2 border-gray-200 dark:border-gray-600 md:p-4 p-3 rounded-md shadow-md hover:shadow-none transition-shadow h-full"
         href={`${item.url}`}
@@ -32,25 +32,30 @@ export default function Story({ item, index }: StoryProps) {
         <span className="text-gray-500 dark:text-gray-400">{index}.</span>
         <div>
           <div className="flex gap-x-3 items-center mb-1 flex-wrap">
-            <h3 className="dark:text-gray-100 font-bold">{item.title}</h3>
+            <h3 aria-label="title" className="dark:text-gray-100 font-bold">
+              {item.title}
+            </h3>
             {item.by && (
-              <span className="text-xs dark:text-gray-300">
+              <span aria-label="writer" className="text-xs dark:text-gray-300">
                 Written By: {item.by}
               </span>
             )}
           </div>
           <div className="flex items-center gap-x-1 text-xs text-gray-500 dark:text-gray-400 flex-wrap">
-            <span>id: {item.id}</span> |<span>{item.score} points</span> |
-            {item.time && <span>{formattedTime}</span>}
+            <span aria-label="id">id: {item.id}</span> |
+            <span aria-label="score">{item.score} points</span> |
+            {item.time && <span aria-label="time">{formattedTime}</span>}
             {item.descendants > 0 ? (
               <>
-                | <span>Comments: {item.descendants}</span>
+                |{' '}
+                <span aria-label="comments">Comments: {item.descendants}</span>
               </>
             ) : null}
           </div>
           {item.text && (
             <div
               className="mt-3 text-sm dark:text-gray-300"
+              aria-label="text"
               dangerouslySetInnerHTML={{ __html: item.text }}
             />
           )}
