@@ -13,6 +13,7 @@ export default function Skeleton({
 }: SkeletonProps) {
   return (
     <div
+      data-testid="skeleton"
       className={classNames(
         'animate-pulse bg-gray-200 dark:bg-gray-600 rounded-lg',
         className

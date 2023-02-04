@@ -7,6 +7,7 @@ interface PaginationItemProps {
   current?: boolean;
   className?: string;
   href: string | object;
+  ariaLabel?: string;
 }
 
 export default function PaginationItem({
@@ -14,14 +15,15 @@ export default function PaginationItem({
   disabled = false,
   current = false,
   className = '',
+  ariaLabel = '',
   href = '#',
 }: PaginationItemProps) {
   return (
-    <li>
+    <li aria-label={ariaLabel}>
       <Link
         href={href}
         className={cn(
-          'page-link relative block py-1 px-3 border-0 transition-all duration-300 rounded-full focus:shadow-none dark:text-gray-300',
+          'block py-1 px-3 border-0 transition-all duration-300 rounded-full focus:shadow-none dark:text-gray-300',
           {
             'bg-blue-600 text-white hover:text-white hover:bg-blue-600 hover:dark:bg-blue-800 shadow-md':
               current,
@@ -33,7 +35,11 @@ export default function PaginationItem({
         )}
       >
         {text}
-        {current && <span className="hidden">(current)</span>}
+        {current && (
+          <span aria-label="hidden" className="hidden">
+            (current)
+          </span>
+        )}
       </Link>
     </li>
   );

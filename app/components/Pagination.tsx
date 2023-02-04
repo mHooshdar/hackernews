@@ -35,7 +35,12 @@ export default function Pagination({ pagesCount, size = 3 }: PaginationProps) {
       <nav aria-label="Page navigation">
         <ul className="flex list-style-none">
           {(pages[0] || -1) > 1 && (
-            <PaginationItem href={resolveRoute(1)} className="mx-1" text="1" />
+            <PaginationItem
+              href={resolveRoute(1)}
+              className="mx-1"
+              text="1"
+              ariaLabel="Go To Page 1"
+            />
           )}
           {!pages.includes(2) && (
             <>
@@ -44,6 +49,7 @@ export default function Pagination({ pagesCount, size = 3 }: PaginationProps) {
                 href={resolveRoute(currentPage - 1)}
                 className="mx-1 disabled"
                 text="<"
+                ariaLabel="Go To Previous Page"
               />
             </>
           )}
@@ -56,6 +62,7 @@ export default function Pagination({ pagesCount, size = 3 }: PaginationProps) {
                   text={page}
                   current={page === currentPage}
                   href={resolveRoute(page)}
+                  ariaLabel={`Go To Page ${page}`}
                 />
               )
           )}
@@ -74,6 +81,7 @@ export default function Pagination({ pagesCount, size = 3 }: PaginationProps) {
               href={resolveRoute(pagesCount)}
               className="mx-1"
               text={pagesCount}
+              ariaLabel="Go To Next Page"
             />
           )}
         </ul>

@@ -2,7 +2,10 @@ import Skeleton from './Skeleton';
 
 export default function StorySkeleton() {
   return (
-    <div className="border flex gap-2 border-gray-200 dark:border-gray-600 md:p-4 p-3 rounded-md shadow-md hover:shadow-none transition-shadow h-full">
+    <div
+      data-testid="story-skeleton"
+      className="border flex gap-2 border-gray-200 dark:border-gray-600 md:p-4 p-3 rounded-md shadow-md hover:shadow-none transition-shadow h-full"
+    >
       <Skeleton width="30px" height="20px" />
       <div className="w-full">
         <div className="w-full flex gap-1 mb-2">
