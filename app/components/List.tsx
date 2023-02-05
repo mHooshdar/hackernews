@@ -62,7 +62,9 @@ export default function List({ className = '' }) {
               />
             ))}
       </div>
-      {!loading && stories.length && <Pagination pagesCount={totalPage} />}
+      {!loading && stories.length ? (
+        <Pagination pagesCount={totalPage} />
+      ) : null}
     </>
   );
 }
