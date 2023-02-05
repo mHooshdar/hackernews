@@ -12,7 +12,7 @@ interface PaginationProps {
 export default function Pagination({ pagesCount, size = 3 }: PaginationProps) {
   const searchParams = useSearchParams();
   const [currentPage, setCurrentPage] = useState(
-    +(searchParams.get('page') ?? 1)
+    +(searchParams.get('page') || 1)
   );
   const pages = Array.from({ length: size }).map((_, i) => {
     const pageNum = i - Math.floor(size / 2) + currentPage;
@@ -27,7 +27,7 @@ export default function Pagination({ pagesCount, size = 3 }: PaginationProps) {
 
   useEffect(() => {
     const nextPage = searchParams.get('page');
-    setCurrentPage(+(nextPage ?? 0));
+    setCurrentPage(+(nextPage ?? 1));
   }, [searchParams]);
 
   return (

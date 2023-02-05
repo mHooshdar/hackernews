@@ -29,7 +29,7 @@ export default function PaginationItem({
               current,
             'text-gray-500 pointer-events-none': disabled,
             'text-gray-800 hover:text-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer':
-              !disabled,
+              !disabled && !current,
           },
           className
         )}

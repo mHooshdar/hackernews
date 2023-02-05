@@ -30,7 +30,7 @@ export default function List({ className = '' }) {
   }, []);
 
   useEffect(() => {
-    async function getTopStoriesData() {
+    async function getTopStoryDetail() {
       setLoading(true);
       const values = await Promise.all(
         totalIds.reduce<Promise<StoryDTO>[]>(
@@ -44,13 +44,13 @@ export default function List({ className = '' }) {
       setLoading(false);
       setStories(values);
     }
-    getTopStoriesData();
+    getTopStoryDetail();
   }, [totalIds, page, startIndex]);
 
   return (
     <>
       <div className={cn('grid md:grid-cols-2 gap-2', className)}>
-        {loading
+        {loading || !stories.length
           ? Array(pageSize)
               .fill(0)
               .map((_, index) => <StorySkeleton key={index} />)
@@ -62,7 +62,7 @@ export default function List({ className = '' }) {
               />
             ))}
       </div>
-      {!loading && <Pagination pagesCount={totalPage} />}
+      {!loading && stories.length && <Pagination pagesCount={totalPage} />}
     </>
   );
 }
