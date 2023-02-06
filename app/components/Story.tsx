@@ -22,11 +22,13 @@ export default function Story({ item, index }: StoryProps) {
     } ago`;
   }, [item.time]);
 
+  const Component = item.url ? Link : 'div';
+
   return (
     <article aria-label="news">
-      <Link
+      <Component
         className="border flex gap-2 border-gray-200 dark:border-gray-600 md:p-4 p-3 rounded-md shadow-md hover:shadow-none transition-shadow h-full"
-        href={`${item.url}`}
+        href={item.url}
         target="_blank"
       >
         <span className="text-gray-500 dark:text-gray-400">{index}.</span>
@@ -60,7 +62,7 @@ export default function Story({ item, index }: StoryProps) {
             />
           )}
         </div>
-      </Link>
+      </Component>
     </article>
   );
 }
